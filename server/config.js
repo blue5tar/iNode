@@ -1,6 +1,6 @@
 exports.config = {
 	port: 8080,
-	webPath : '/home/blue5tar/work/nodejs/myNode/app/index.js',
+	webPath : '/home/blue5tar/work/nodejs/iNode/app/index.js',
 	openAccessLog : false,
-	accessLogPath : '/home/blue5tar/work/nodejs/myNode/server/accesslog'
+	accessLogPath : '/home/blue5tar/work/nodejs/iNode/server/accesslog'
 };
