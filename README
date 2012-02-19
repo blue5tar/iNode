@@ -1,1 +1,3 @@
 iNode - a node.js web framework
+
+node server/server.js
