@@ -1,6 +1,6 @@
 exports.config = {
-	property: 'value',
-	router: {
-		
-	}
+    property: 'value',
+    router: {
+        
+    }
 };
