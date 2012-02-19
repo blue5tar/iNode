@@ -20,8 +20,10 @@ Framework.prototype.run = function(req, res) {
 Framework.prototype._dispatch = function(controller, action) {
 	var self = this;
 	console.log("dispatch");
-	console.log("controller path : " + this.app.appPath + '/controller/' + controller);
+	
 	var controllerPath = this.app.appPath + '/controller/' + controller;
+	console.log("controller path : %s", controllerPath);
+
 	path.exists(controllerPath + '.js', function(exists) {
 		if (exists) {
 			var CtrModule = require(controllerPath);
@@ -37,6 +39,8 @@ Framework.prototype._dispatch = function(controller, action) {
 				}
 			} else {
 				console.log("validate false");
+				self.res.writeHead(403, "forbidden");
+				self.res.end();
 			}
 		} else {
 			self.res.writeHead(404, "Page Not Found");
