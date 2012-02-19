@@ -1,4 +1,5 @@
 var router = require("./router");
+var path = require("path");
 //console.log("load index modules");
 
 exports = module.exports = Framework;
@@ -17,16 +18,31 @@ Framework.prototype.run = function(req, res) {
 };
 
 Framework.prototype._dispatch = function(controller, action) {
+	var self = this;
 	console.log("dispatch");
 	console.log("controller path : " + this.app.appPath + '/controller/' + controller);
-	var CtrModule = require(this.app.appPath + '/controller/' + controller);
-	var controller = new CtrModule();
-	if (controller.validate(action)) {
-		console.log("validate true");
-		controller[action](this.req, this.res);
-	} else {
-		console.log("validate false");
-	}
+	var controllerPath = this.app.appPath + '/controller/' + controller;
+	path.exists(controllerPath + '.js', function(exists) {
+		if (exists) {
+			var CtrModule = require(controllerPath);
+	
+			var controller = new CtrModule();
+			if (controller.validate(action)) {
+				console.log("validate true");
+				if (controller[action]) {
+					controller[action](self.req, self.res);
+				} else {
+					self.res.writeHead(404, "Page Not Found");
+					self.res.end();
+				}
+			} else {
+				console.log("validate false");
+			}
+		} else {
+			self.res.writeHead(404, "Page Not Found");
+			self.res.end();
+		}
+	});
 };
 
 
