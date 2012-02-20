@@ -1,9 +1,10 @@
 {
     "name": "iNode", 
     "version": "0.0.1", 
-    "main": "./server.js", 
+    "main": "./server/server.js", 
     "private": true, 
     "dependencies": {
-      "less": "latest"
+      "less": "latest",
+      "ejs": "0.5.0"
     }
 }

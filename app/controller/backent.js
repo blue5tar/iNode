@@ -3,8 +3,8 @@ var CommonController = require("./common");
 
 exports = module.exports = BackentController;
 
-function BackentController () {
-    
+function BackentController (app) {
+    CommonController.call(this, app);
 }
 
 util.inherits(BackentController, CommonController);

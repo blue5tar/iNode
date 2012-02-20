@@ -28,7 +28,7 @@ Framework.prototype._dispatch = function(controller, action) {
         if (exists) {
             var CtrModule = require(controllerPath);
     
-            var controller = new CtrModule();
+            var controller = new CtrModule(self.app);
             if (controller.validate(action)) {
                 console.log("validate true");
                 if (controller[action]) {

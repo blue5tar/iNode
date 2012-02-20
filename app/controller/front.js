@@ -3,8 +3,8 @@ var CommonController = require("./common");
 
 exports = module.exports = FrontController;
 
-function FrontController () {
-    
+function FrontController (app) {
+    CommonController.call(this, app);
 }
 
 util.inherits(FrontController, CommonController);
