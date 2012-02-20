@@ -21,7 +21,7 @@ exports.parseUri = function (reqUrl) {
         controller = pathnames.join("/");
     }
     return {
-        controller: controller, 
-        action: action
+        controller: controller.toLowerCase(), 
+        action: action.toLowerCase()
     };
 };
