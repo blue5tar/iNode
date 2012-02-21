@@ -16,12 +16,16 @@ router
     
 
 view
-    ejs renderFile option.locals debug remove third param
+    ejs 
+    jade
 
 @todo
     req
-
-        session
+        get
+        post
+        file
+        
+    session
 
 
     res
