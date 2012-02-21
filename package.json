@@ -5,6 +5,7 @@
     "private": true, 
     "dependencies": {
       "less": "latest",
-      "ejs": "0.5.0"
+      "ejs": "latest",
+      "jade": "latest"
     }
 }

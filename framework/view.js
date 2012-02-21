@@ -1,29 +1,25 @@
-var ejs = require("ejs");
-
 exports = module.exports = View;
 
-function View(option) {
+function View(engineName, option) {
+    var Engine = require("./views/" + engineName + "wrapper");
+    this.engine = new Engine();
     this.option = option || {cache: true};
-    this.option.locals = {};
+    if (this.option.cache) {
+        this.engine.setCache(true);
+    }
     this.templatePath = '';
 }
+
 View.prototype.setPath = function(path) {
     this.templatePath = path;
     return this;
 };
 
-View.prototype.openCache = function() {
-    this.option.cache = true;
-    return this;
-};
-
 View.prototype.assign = function(attr, value) {
-    this.option.locals[attr] = value;
+    this.engine.assign(attr, value);
     return this;
 };
 
 View.prototype.render = function(template) {
-    console.log("render: " + this.templatePath + '/' + template + '.ejs');
-    console.log(this.option);
-    return ejs.renderFile(this.templatePath + '/' + template + '.ejs', this.option);
+    return this.engine.render(this.templatePath + '/' + template);
 };

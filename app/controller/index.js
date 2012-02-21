@@ -17,7 +17,8 @@ index.show = function(req, res) {
     
     this.view
         .assign('attr', 'hello')
-        .assign('value', 'world');
+        .assign('value', 'world')
+        .assign('cache', false);
     
     res.writeHead(200, {
         'Content-Type': 'text/html'

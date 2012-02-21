@@ -13,3 +13,15 @@ router
         /index/show
         /index/show?a=1&b=2
         /admin/index/show
+    
+
+view
+    ejs renderFile option.locals debug remove third param
+
+@todo
+    req
+
+        session
+
+
+    res
