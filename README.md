@@ -1,6 +1,6 @@
 iNode - a node.js web framework
 
-node server/server.js
+$ node server/server.js
 
 router
     default ruler:
