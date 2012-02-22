@@ -1,4 +1,5 @@
 {
+    "author": "blue5tar",
     "name": "iNode", 
     "version": "0.0.1", 
     "main": "./server/server.js", 
@@ -6,6 +7,7 @@
     "dependencies": {
       "less": "latest",
       "ejs": "latest",
-      "jade": "latest"
+      "jade": "latest",
+      "formidable": "latest"
     }
 }

@@ -5,6 +5,18 @@
     <body>
         <span><%= attr %></span>
         <span><%= value %></span>
-        <div class="box"><img src="/images/meinv.jpg"></div>
+        <span>id = <%= id %></span>
+        <div class="box"><img src="/images/meinv.jpg" width="100" height="100"></div>
+        <div>
+            <form id="theForm" action="/index/post?id=12" method="post">
+                username : <input type="text" name="username" value="" /><br/>
+                password : <input type="password" name="password" value="" /><br/>
+                sex : <input type="radio" name="sex" value="1" /> <input type="radio" name="sex" value="2" /> <br/>
+                hobby : <input type="checkbox" name="hobby" value="read" /> read 
+                        <input type="checkbox" name="hobby" value="surfing" /> surfing
+                        <br/>
+                <input type="submit" name="submit" value="Submit" />
+            </form>
+        </div>
     </body>
 </html>

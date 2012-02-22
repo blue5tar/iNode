@@ -5,13 +5,18 @@ function View(engineName, option) {
     this.engine = new Engine();
     this.option = option || {cache: true};
     if (this.option.cache) {
-        this.engine.setCache(true);
+        this.setCache(true);
     }
     this.templatePath = '';
 }
 
 View.prototype.setPath = function(path) {
     this.templatePath = path;
+    return this;
+};
+
+View.prototype.setCache = function(isCache) {
+    this.engine.setCache(isCache);
     return this;
 };
 

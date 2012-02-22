@@ -3,5 +3,5 @@ exports.config = {
     router: {
         
     },
-    view: 'jade'
+    view: 'ejs'
 };

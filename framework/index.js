@@ -1,6 +1,7 @@
 var router = require("./router");
 var path = require("path");
 //console.log("load index modules");
+require("./request");
 
 exports = module.exports = Framework;
 
@@ -9,12 +10,17 @@ function Framework(app) {
 }
 
 Framework.prototype.run = function(req, res) {
+    var self = this;
     this.req = req;
     this.res = res;
     console.log("framework run");
+
+    var route = router.parseUri(req.url);
+
+    req.dataParse(function(){
+        self._dispatch(route.controller, route.action);
+    });
     
-    var res = router.parseUri(req.url);
-    this._dispatch(res.controller, res.action);
 };
 
 Framework.prototype._dispatch = function(controller, action) {
