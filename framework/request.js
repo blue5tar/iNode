@@ -25,7 +25,7 @@ req.getParams = function(type, name, format) {
             value = Number(value);
             break;
         case 'string':
-            value = String(value);
+            value = (value === null ? '' : String(value));
             break;
         case 'bool':
             value = Boolean(value);
@@ -42,7 +42,7 @@ req.dataParse = function(fn) {
         return;
     }
     this.params = {get: null, post:null};
-    
+
     var urlParsed = url.parse(this.url);
     this.params.get = querystring.parse(urlParsed.query);
 
