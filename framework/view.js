@@ -21,10 +21,16 @@ View.prototype.setCache = function(isCache) {
 };
 
 View.prototype.assign = function(attr, value) {
-    this.engine.assign(attr, value);
+    if (typeof(attr) == "object" && value === undefined) {
+        for(a in attr) {
+            this.assign(a, attr[a]);
+        }
+    } else {
+        this.engine.assign(attr, value);
+    }
     return this;
 };
 
-View.prototype.render = function(template) {
-    return this.engine.render(this.templatePath + '/' + template);
+View.prototype.render = function(template, callback) {
+    return this.engine.render(this.templatePath + '/' + template, callback);
 };

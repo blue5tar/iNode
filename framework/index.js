@@ -1,6 +1,8 @@
 var router = require("./router");
 var path = require("path");
 //console.log("load index modules");
+
+require("./response");
 require("./request");
 
 exports = module.exports = Framework;

@@ -1,5 +1,6 @@
 var util = require("util");
-var FrontController = require("./front");
+var FrontController = require("./front")
+    fs = require("fs");
 
 exports = module.exports = IndexController;
 
@@ -17,15 +18,10 @@ index.show = function(req, res) {
     // var content = "<link rel=\"stylesheet\" href=\"/style.less\"><div class=\"box\"><img src=\"/images/meinv.jpg\"></div>";
     
     this.view
-        .assign('attr', 'hello')
-        .assign('value', 'world')
+        .assign({attr: 'hello', value: 'world'})
         .assign('id', '1');
-    
-    res.writeHead(200, {
-        'Content-Type': 'text/html'
-    });
-    res.end(this.view.render('index'));
-    //res.end(view.render('index'));
+
+    res.renderView('index', this.view);
 };
 
 index.post = function(req, res) {
@@ -34,8 +30,11 @@ index.post = function(req, res) {
         .assign('value', req.post("hobby", "array").join(","))
         .assign('id', req.get('id', 'int'));
 
-    res.writeHead(200, {
-        'Content-Type': 'text/html'
-    });
-    res.end(this.view.render('index'));
+    var files = req.file("files");
+
+    if (files) {
+        fs.rename(files.path, global.appConfig.uploadDir + '/' + files.filename);
+    }
+
+    res.renderView('index', this.view);
 }

@@ -18,15 +18,13 @@ JadeWrapper.prototype.assign = function(attr, value) {
     return this;
 };
 
-JadeWrapper.prototype.render = function(filePath) {
-    var content = '';
+JadeWrapper.prototype.render = function(filePath, callback) {
     jade.renderFile(filePath + '.jade', this.option, function(err, data) {
         if (err) {
             content = err.toString();
         } else {
             content = data;
         }
-            
+        callback(content);
     });
-    return content;
 };

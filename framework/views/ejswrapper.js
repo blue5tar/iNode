@@ -18,14 +18,14 @@ EjsWrapper.prototype.assign = function(attr, value) {
     return this;
 };
 
-EjsWrapper.prototype.render = function(filePath) {
-    var content = '';
+EjsWrapper.prototype.render = function(filePath, callback) {
     ejs.renderFile(filePath + '.ejs', this.option, function(err, data) {
         if (err) {
             content = err.toString();
         } else {
             content = data;
         }
+
+        callback(content);
     });
-    return content;
 };

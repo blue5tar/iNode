@@ -1,7 +1,11 @@
 var Framework = require("../framework");
+
+global.APP_PATH = __dirname;
+global.START_TIME = new Date().getTime();
+
 var config = require("./config").config;
-const APP_PATH = __dirname;
-const START_TIME = new Date();
+
+global.appConfig = config;
 
 exports.run = function (req, res) {
     this.init();
@@ -15,6 +19,6 @@ exports.run = function (req, res) {
 }
 
 exports.init = function() {
-    this.appPath = APP_PATH;
+    this.appPath = global.APP_PATH;
     this.appConfig = config;
 }

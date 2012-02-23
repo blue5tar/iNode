@@ -3,5 +3,6 @@ exports.config = {
     router: {
         
     },
-    view: 'ejs'
+    view: 'ejs',
+    uploadDir: global.APP_PATH + '/public/upload',
 };

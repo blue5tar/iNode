@@ -23,7 +23,7 @@ view
     req
         get
         post
-        file
+        file  html5 file api
         
     session
 

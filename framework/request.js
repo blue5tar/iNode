@@ -12,6 +12,10 @@ req.post = function(name, format) {
     return this.getParams('post', name, format);
 };
 
+req.file = function(name) {
+    return this.params['file'] !== null ? (this.params['file'][name] ? this.params['file'][name] : null) : null;
+};
+
 req.getParams = function(type, name, format) {
     var value = this.params[type] !== null ? (this.params[type][name] ? this.params[type][name] : null) : null;
 
@@ -41,7 +45,7 @@ req.dataParse = function(fn) {
     if (this.params) {
         return;
     }
-    this.params = {get: null, post:null};
+    this.params = {get: null, post: null, file: null};
 
     var urlParsed = url.parse(this.url);
     this.params.get = querystring.parse(urlParsed.query);
@@ -49,18 +53,20 @@ req.dataParse = function(fn) {
     if (this.method == "POST") {
         var form = new formidable.IncomingForm();
         this.params.post = {};
+        this.params.file = {};
+
+        form.uploadDir = '/tmp';
 
         form
             .on('error', function(err) {
-                //
+                console.log(err);
             })
             .on('field', function(field, value) {
                 self.params.post[field] = value;
             })
             .on('file', function(field, file) {
-                console.log(field, file);
-                //files.push([field, file]);
-              })
+                self.params.file[field] = file;
+            })
             .on('end', function() {
                 fn();
             });
