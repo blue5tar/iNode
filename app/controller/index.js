@@ -10,13 +10,12 @@ function IndexController (app) {
 
 util.inherits(IndexController, FrontController);
 
-index = IndexController.prototype;
+var index = IndexController.prototype;
 
 index.show = function(req, res) {
     console.log("Index show");
-
     // var content = "<link rel=\"stylesheet\" href=\"/style.less\"><div class=\"box\"><img src=\"/images/meinv.jpg\"></div>";
-    
+
     this.view
         .assign({attr: 'hello', value: 'world'})
         .assign('id', '1');

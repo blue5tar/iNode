@@ -20,6 +20,7 @@ JadeWrapper.prototype.assign = function(attr, value) {
 
 JadeWrapper.prototype.render = function(filePath, callback) {
     jade.renderFile(filePath + '.jade', this.option, function(err, data) {
+        var content = "";
         if (err) {
             content = err.toString();
         } else {

@@ -9,7 +9,7 @@ function IndexController () {
 
 util.inherits(IndexController, BackentController);
 
-index = IndexController.prototype;
+var index = IndexController.prototype;
 
 index.show = function(req, res) {
     console.log("admin Index show");

@@ -22,7 +22,6 @@ Framework.prototype.run = function(req, res) {
 
 Framework.prototype._dispatch = function(controller, action) {
     var self = this;
-    console.log("dispatch");
     
     var controllerPath = this.app.appPath + '/controller/' + controller;
     console.log("controller path : %s", controllerPath);

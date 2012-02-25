@@ -8,6 +8,10 @@ req.__defineGetter__('ip', function() {
     return this.connection.remoteAddress;
 });
 
+req.__defineGetter__('referer', function() {
+    return this.headers['referer'] || '';
+});
+
 req.isAjax = function() {
 
 };
@@ -82,9 +86,7 @@ req.dataParse = function(fn) {
                 self.params.post[field] = value;
             })
             .on('file', function(field, file) {
-                if (file.name != '') {
-                    self.params.file[field] = file;
-                }
+                self.params.file[field] = file;
             })
             .on('end', function() {
                 fn();

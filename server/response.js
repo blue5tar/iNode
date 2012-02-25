@@ -4,7 +4,7 @@ var fs = require("fs");
 var path = require("path");
 
 res.render = function(content, contentType, binary) {
-    contentType = contentType || "text/html";
+    var contentType = contentType || "text/html";
 
     this.writeHead(200, {
         'Content-Type': contentType

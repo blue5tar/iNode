@@ -20,6 +20,7 @@ EjsWrapper.prototype.assign = function(attr, value) {
 
 EjsWrapper.prototype.render = function(filePath, callback) {
     ejs.renderFile(filePath + '.ejs', this.option, function(err, data) {
+        var content = "";
         if (err) {
             content = err.toString();
         } else {

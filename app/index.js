@@ -12,7 +12,7 @@ exports.run = function (req, res) {
     console.log("app run at %s", START_TIME);
     console.log("app path : %s", APP_PATH);
     
-    framework = new Framework(this);
+    var framework = new Framework(this);
     //load app config
     //load router config
     framework.run(req, res);

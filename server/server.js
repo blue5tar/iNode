@@ -72,4 +72,8 @@ var server = http.createServer(function(req, res) {
 
 server.listen(config.port);
 
+process.on('uncaughtException', function(err){
+    console.log(err);
+});
+
 console.log("the server run on port %d at %s", server.address().port, new Date());
