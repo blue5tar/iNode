@@ -2,8 +2,6 @@ var url = require("url");
 var path = require("path");
 
 exports.parseUri = function (reqUrl) {
-    console.log("parseUri");
-    console.log("access url is : " + reqUrl);
     
     //default route ruler
     var parsedResult = url.parse(reqUrl);

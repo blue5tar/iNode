@@ -8,19 +8,21 @@ var path = require("path");
 var less = require("less");
 //var EventProxy = require("eventproxy");
 
+require("./response");
+require("./request");
 
 var server = http.createServer(function(req, res) {
     var accessUrl = req.url;
     //log
     if (config.openAccessLog) {
-        console.log("access ip: %s, url : %s", req.connection.remoteAddress, accessUrl);
+        console.log("access ip: %s, url : %s", req.ip, accessUrl);
     }
 
     //process static file
     if (/\.(gif|png|jpg|bmp|ico|js|css|txt|less)$/i.test(accessUrl)) {
         console.log("static file: " + accessUrl);
         var result = url.parse(accessUrl);
-        var extName = path.extname(result.pathname).substr(1);
+        
         // app/public/
         var staticFile = config.webPath + '/public' + accessUrl;
 
@@ -42,44 +44,20 @@ var server = http.createServer(function(req, res) {
                     res.setHeader("Cache-Control", "max-age=" + config.staticFileExpires);
 
                     if (req.headers[ifModifiedSince] && lastModified == req.headers[ifModifiedSince]) {
-                        res.writeHead(304, "Not Modified");
-                        res.end();
+                        res.notModify();
                     } else {
-                        fs.readFile(staticFile, "binary", function(err, data) {
-                            if (err) {
-                                res.writeHead(505, "Internal Server Error", {'Content-Type': 'text/plain'});
-                                res.end(err);
-                            } else {
-                                var outputFile = function(res, extName, data) {
-                                    var contentType = mimes[extName];
-                                    if (!contentType) {
-                                        console.log("not found contentType");//@todo
-                                        res.writeHead(505, "unKnown contentType");
-                                        res.end();
-                                        return;
-                                    }
-                                    res.writeHead(200, {
-                                        'Content-Type': contentType
-                                    });
-                                    res.write(data, 'binary');
-                                    res.end();
-                                }
-
-                                if (extName == 'less') { //@see http://www.lesscss.net/
-                                    less.render(data, function(e, css) {
-                                        outputFile(res, 'css', css);
-                                    });
-                                } else {
-                                    outputFile(res, extName, data);
-                                }
+                        var extName = path.extname(staticFile).substr(1);
+                        res.renderFile(staticFile, function(data, output) {
+                            if (extName == 'less') { //@see http://www.lesscss.net/
+                                less.render(data, function(e, css) {
+                                    res.render(css, mimes['css'], true);
+                                });
                             }
-
-                        });
+                        }); 
                     }
                 });
             } else {
-                res.writeHead(404, 'Not Found');
-                res.end();
+                res.notFound();
             }
         });
         return;
@@ -87,7 +65,9 @@ var server = http.createServer(function(req, res) {
 
     //other
     var webSite = require(config.webPath);
-    webSite.run(req, res);
+    req.dataParse(function(){
+        webSite.run(req, res);
+    });
 });
 
 server.listen(config.port);
