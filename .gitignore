@@ -1,4 +1,4 @@
-/config.js
 /app/config.js
 /app/public/upload/*
+/server/config.js
 /node_modules/*
