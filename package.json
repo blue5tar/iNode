@@ -8,6 +8,7 @@
       "less": "latest",
       "ejs": "latest",
       "jade": "latest",
-      "formidable": "latest"
+      "formidable": "latest",
+      "useragent": "latest"
     }
 }
