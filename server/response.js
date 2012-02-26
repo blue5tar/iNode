@@ -1,7 +1,7 @@
-var res = require("http").ServerResponse.prototype;
-var mimes = require("./mimes").mimes;
-var fs = require("fs");
-var path = require("path");
+var res = require("http").ServerResponse.prototype,
+    mimes = require("./mimes").mimes,
+    fs = require("fs"),
+    path = require("path");
 
 res.render = function(content, contentType, binary) {
     var contentType = contentType || "text/html";
@@ -50,6 +50,18 @@ res.renderView = function(template, view) {
     view.render(template, function(data) {
         self.render(data);
     });
+};
+
+res.redirect = function(url, permanently) {
+    var statusCode = 302;
+    if (permanently) {
+        statusCode = 301;
+    }
+
+    this.writeHead(statusCode, {
+        'Location' : url
+    });
+    this.end();
 };
 
 res.serverError = function(message) {

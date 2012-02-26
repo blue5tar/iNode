@@ -1,12 +1,10 @@
-var http = require("http");
-var url = require("url");
-var config = require("./config").config;
-//var BufferHelper = require("bufferHelper");
-var mimes = require("./mimes").mimes;
-var fs = require("fs");
-var path = require("path");
-var less = require("less");
-//var EventProxy = require("eventproxy");
+var http = require("http"),
+    url = require("url"),
+    mimes = require("./mimes").mimes,
+    fs = require("fs"),
+    path = require("path"),
+    less = require("less"),
+    config = require("./config").config;
 
 require("./response");
 require("./request");

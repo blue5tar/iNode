@@ -9,6 +9,6 @@
       "ejs": "latest",
       "jade": "latest",
       "formidable": "latest",
-      "useragent": "latest"
+      "useragent": "latest",
     }
 }

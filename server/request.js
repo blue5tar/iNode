@@ -1,9 +1,9 @@
-var req = require("http").IncomingMessage.prototype;
-var formidable = require("formidable");
-var url = require("url");
-var querystring = require("querystring");
-var util = require("util");
-var useragent = require("useragent");
+var req = require("http").IncomingMessage.prototype,
+    formidable = require("formidable"),
+    url = require("url"),
+    querystring = require("querystring"),
+    util = require("util"),
+    useragent = require("useragent");
 
 req.__defineGetter__('ip', function() {
     return this.connection.remoteAddress;
@@ -13,6 +13,11 @@ req.__defineGetter__('referer', function() {
     return this.headers['referer'] || '';
 });
 
+req.__defineGetter__('browser', function() {
+    //@todo android iphone
+    return useragent.is(this.headers['user-agent']);
+});
+
 req.isAjax = function() {
     return;
 };
@@ -20,10 +25,6 @@ req.isAjax = function() {
 req.isRobot = function() {
     return;
 };
-
-req.__defineGetter__('browser', function() {
-    return useragent.is(this.headers['user-agent']);
-});
 
 req.get = function(name, format) {
     return getParams.call(this, 'get', name, format);
@@ -106,3 +107,6 @@ req.dataParse = function(fn) {
     }
 };
 
+req.__defineGetter__('session', function() {
+    return {};
+});

@@ -14,6 +14,9 @@ var index = IndexController.prototype;
 
 index.show = function(req, res) {
     console.log("Index show");
+    console.log(req.session);
+    req.session.user = "blue5tar";
+    console.log(req.session.user);
     // var content = "<link rel=\"stylesheet\" href=\"/style.less\"><div class=\"box\"><img src=\"/images/meinv.jpg\"></div>";
 
     this.view
@@ -24,6 +27,7 @@ index.show = function(req, res) {
 };
 
 index.post = function(req, res) {
+    //res.redirect("/index", true);
     this.view
         .assign('attr', req.post("username", "string"))
         .assign('value', req.post("hobby", "array").join(","))
@@ -34,6 +38,7 @@ index.post = function(req, res) {
     if (files) {
         fs.rename(files.path, global.appConfig.uploadDir + '/' + files.filename);
     }
+
 
     res.renderView('index', this.view);
 }

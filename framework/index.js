@@ -1,6 +1,5 @@
-var router = require("./router");
-var path = require("path");
-//console.log("load index modules");
+var router = require("./router"),
+    path = require("path");
 
 exports = module.exports = Framework;
 
