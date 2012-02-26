@@ -20,22 +20,21 @@ res.render = function(content, contentType, binary) {
 
 res.renderFile = function(file, callback) {
     var self = this;
-    path.exists(staticFile, function(exists) {
+    path.exists(file, function(exists) {
         if (exists) {
             var extName = path.extname(file).substr(1);
             fs.readFile(file, "binary", function(err, data) {
                 if (err) {
                     self.serverError("error!");
                 } else {
-                    var contentType = mimes[extName];
-                    if (!contentType) {
-                        self.serverError();
-                        return;
-                    }
-
                     if (callback) {
                         callback(data);
                     } else {
+                        var contentType = mimes[extName];
+                        if (!contentType) {
+                            self.serverError("contentType error");
+                            return;
+                        }
                         self.render(data, contentType, true);
                     }
                 }
@@ -55,7 +54,7 @@ res.renderView = function(template, view) {
 
 res.serverError = function(message) {
     this.writeHead(505, message, {'Content-Type': 'text/plain'});
-    this.end(err);
+    this.end(message);
 };
 
 res.notFound = function() {

@@ -47,13 +47,15 @@ var server = http.createServer(function(req, res) {
                         res.notModify();
                     } else {
                         var extName = path.extname(staticFile).substr(1);
-                        res.renderFile(staticFile, function(data, output) {
-                            if (extName == 'less') { //@see http://www.lesscss.net/
+                        var callback = null;
+                        if (extName == 'less') { //@see http://www.lesscss.net/
+                            callback = function(data) {
                                 less.render(data, function(e, css) {
                                     res.render(css, mimes['css'], true);
                                 });
-                            }
-                        }); 
+                            };
+                        }
+                        res.renderFile(staticFile,callback); 
                     }
                 });
             } else {
@@ -72,8 +74,8 @@ var server = http.createServer(function(req, res) {
 
 server.listen(config.port);
 
-process.on('uncaughtException', function(err){
-    console.log(err);
-});
+// process.on('uncaughtException', function(err){
+//     console.log(err);
+// });
 
 console.log("the server run on port %d at %s", server.address().port, new Date());

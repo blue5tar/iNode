@@ -13,8 +13,30 @@ req.__defineGetter__('referer', function() {
 });
 
 req.isAjax = function() {
-
+    return;
 };
+
+req.isRobot = function() {
+    return;
+};
+
+req.__defineGetter__('browser', function() {
+    var userAgent = this.headers['user-agent'];
+
+    //@see http://www.cnblogs.com/phphuaibei/archive/2011/12/09/2282570.html
+    //@todo 
+    return { //移动终端浏览器版本信息 
+        trident: userAgent.indexOf('Trident') > -1, //IE内核
+        presto: userAgent.indexOf('Presto') > -1,   //opera内核
+        webKit: userAgent.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: userAgent.indexOf('Gecko') > -1 && userAgent.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!userAgent.match(/AppleWebKit.*Mobile.*/)||!!userAgent.match(/AppleWebKit/), //是否为移动终端
+        ios: !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: userAgent.indexOf('Android') > -1, //android终端或者uc浏览器
+        iPhone: userAgent.indexOf('iPhone') > -1 || userAgent.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+        iPad: userAgent.indexOf('iPad') > -1, //是否iPad
+    };
+});
 
 req.get = function(name, format) {
     return getParams.call(this, 'get', name, format);
