@@ -13,16 +13,9 @@ util.inherits(IndexController, FrontController);
 var index = IndexController.prototype;
 
 index.show = function(req, res) {
-    if (!req.session.get("session")) {
-        console.log("------------no session data -----------");
-        req.session.set("session", "123321");
-    }
-
-    // var content = "<link rel=\"stylesheet\" href=\"/style.less\"><div class=\"box\"><img src=\"/images/meinv.jpg\"></div>";
-
     this.view
         .assign({attr: 'hello', value: 'world'})
-        .assign('id', req.session.get("session"));
+        .assign('id', req.cookie.a);
 
     res.renderView('index', this.view);
 };
