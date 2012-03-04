@@ -10,9 +10,11 @@ session.start = function (request, response, options) {
     options = options || {};
     options.expires = options.expires || MAX_AGE;
     options.path = options.path || '';
+    options.domain = options.domain || '';
 
     var sessionId = request.get("NODESESSID", "string");
     if (sessionId == '') {
+        //console.log("session from cookie");
         if (request.cookie.NODESESSID) {
             sessionId = request.cookie.NODESESSID;
         } else {
@@ -22,7 +24,7 @@ session.start = function (request, response, options) {
         response.setCookie(
             "NODESESSID", 
             sessionId, 
-            {expires : options.expires, path: options.path}
+            {expires : options.expires, path: options.path, domain: options.domain}
         );
     }
 
@@ -34,7 +36,7 @@ session.start = function (request, response, options) {
             timestamp: new Date().getTime()
         };
     }
-    request.session = sessionData[sessionId];
+    request.session = sessionData[sessionId].data;
 }
 
 function _generateSessionId(ipString) {
