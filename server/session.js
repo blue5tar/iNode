@@ -1,12 +1,12 @@
 var md5 = require("./utilities/md5");
 
-var Session = module.exports;
+var session = module.exports;
 
 var sessionData = {},
     GC_TIME = 60000, // 1m
     MAX_AGE = 1800000; // 30m
 
-Session.start = function (request, response, options) {
+session.start = function (request, response, options) {
     options = options || {};
     options.expires = options.expires || MAX_AGE;
     options.path = options.path || '';
