@@ -10,5 +10,7 @@
       "jade": "latest",
       "formidable": "latest",
       "useragent": "latest",
+      "charenc": ">=0.0.1",
+      "crypt": ">=0.0.1"
     }
 }

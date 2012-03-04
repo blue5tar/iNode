@@ -13,21 +13,22 @@ util.inherits(IndexController, FrontController);
 var index = IndexController.prototype;
 
 index.show = function(req, res) {
-    console.log("Index show");
-    console.log(req.session);
-    req.session.user = "blue5tar";
-    console.log(req.session.user);
+    if (!req.session.get("session")) {
+        console.log("------------no session data -----------");
+        req.session.set("session", "123321");
+    }
+
     // var content = "<link rel=\"stylesheet\" href=\"/style.less\"><div class=\"box\"><img src=\"/images/meinv.jpg\"></div>";
 
     this.view
         .assign({attr: 'hello', value: 'world'})
-        .assign('id', '1');
+        .assign('id', req.session.get("session"));
 
     res.renderView('index', this.view);
 };
 
 index.post = function(req, res) {
-    //res.redirect("/index", true);
+    res.redirect("/index", true);
     this.view
         .assign('attr', req.post("username", "string"))
         .assign('value', req.post("hobby", "array").join(","))

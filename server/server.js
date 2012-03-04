@@ -1,10 +1,12 @@
 var http = require("http"),
+    Session = require("./session"),
     url = require("url"),
     mimes = require("./mimes").mimes,
     fs = require("fs"),
     path = require("path"),
     less = require("less"),
-    config = require("./config").config;
+    config = require("./config").config
+    util = require("util");
 
 require("./response");
 require("./request");
@@ -18,7 +20,7 @@ var server = http.createServer(function(req, res) {
 
     //process static file
     if (/\.(gif|png|jpg|bmp|ico|js|css|txt|less)$/i.test(accessUrl)) {
-        console.log("static file: " + accessUrl);
+        //console.log("static file: " + accessUrl);
         var result = url.parse(accessUrl);
         
         // app/public/
@@ -66,8 +68,10 @@ var server = http.createServer(function(req, res) {
     //other
     var webSite = require(config.webPath);
     req.dataParse(function(){
+        req.session = new Session(req);
         webSite.run(req, res);
     });
+    req.session.save(res);
 });
 
 server.listen(config.port);

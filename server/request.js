@@ -5,12 +5,31 @@ var req = require("http").IncomingMessage.prototype,
     util = require("util"),
     useragent = require("useragent");
 
+
 req.__defineGetter__('ip', function() {
     return this.connection.remoteAddress;
 });
 
 req.__defineGetter__('referer', function() {
     return this.headers['referer'] || '';
+});
+
+req._cookies = null;
+req.__defineGetter__('cookie', function() {
+    var self = this;
+    if (!this.headers['cookie']) {
+        return {};
+    }
+
+    if (this._cookies === null) {
+        var cookieString = this.headers['cookie'];
+        this._cookies = {};
+        cookieString.split(";").map(function(cookie) {
+            var cookiestr = cookie.trim().split("=");
+            self._cookies[cookiestr[0]] = cookiestr[1];
+        }); 
+    }
+    return this._cookies;
 });
 
 req.__defineGetter__('browser', function() {
@@ -106,7 +125,3 @@ req.dataParse = function(fn) {
         fn();
     }
 };
-
-req.__defineGetter__('session', function() {
-    return {};
-});

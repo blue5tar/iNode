@@ -4,6 +4,7 @@ var res = require("http").ServerResponse.prototype,
     path = require("path");
 
 res.render = function(content, contentType, binary) {
+    content = content.toString();
     var contentType = contentType || "text/html";
 
     this.writeHead(200, {
@@ -82,4 +83,47 @@ res.notModify = function() {
 res.forbidden = function() {
     this.writeHead(403);
     this.end();
+};
+
+var writeHead = res.writeHead;
+res.writeHead = function(statusCode, reasonPhrase, headers) {
+    this.writeHead = writeHead;
+    var cookieArray = [];
+    for(name in this._cookieArr) {
+        cookieArray.push(this._cookieArr[name]);
+    }
+    this.setHeader("Set-Cookie", cookieArray);
+    this.writeHead(statusCode, reasonPhrase, headers);
+};
+
+// var end = res.end;
+// res.end = function(data, encoding) {
+//     this.end = end;
+    
+//     this.end(data, encoding);
+// };
+
+res._cookieArr = {};
+res.setCookie = function(name, value, options) {
+    options = options || {};
+    if (value === null) {
+        value = '';
+        options.expires = -1;
+    }
+    var expires = '';
+    if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+        var date;
+        if (typeof options.expires == 'number') {
+            date = new Date();
+            date.setTime(date.getTime() + (options.expires * 1000));
+        } else {
+            date = options.expires;
+        }
+        expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+    }
+    var path   = options.path ? '; path=' + options.path : '';
+    var domain = options.domain ? '; domain=' + options.domain : '';
+    var secure = options.secure ? '; secure' : '';
+    var cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+    this._cookieArr[name] = cookie;
 };

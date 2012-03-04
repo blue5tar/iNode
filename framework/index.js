@@ -11,7 +11,6 @@ Framework.prototype.run = function(req, res) {
     var self = this;
     this.req = req;
     this.res = res;
-    console.log("framework run");
 
     var route = router.parseUri(req.url);
 
@@ -23,7 +22,7 @@ Framework.prototype._dispatch = function(controller, action) {
     var self = this;
     
     var controllerPath = this.app.appPath + '/controller/' + controller;
-    console.log("controller path : %s", controllerPath);
+    //console.log("controller path : %s", controllerPath);
 
     path.exists(controllerPath + '.js', function(exists) {
         if (exists) {
@@ -37,7 +36,6 @@ Framework.prototype._dispatch = function(controller, action) {
                     self.res.notFound();
                 }
             } else {
-                console.log("validate false");
                 self.res.forbidden();
             }
         } else {
