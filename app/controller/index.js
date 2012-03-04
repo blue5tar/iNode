@@ -13,9 +13,13 @@ util.inherits(IndexController, FrontController);
 var index = IndexController.prototype;
 
 index.show = function(req, res) {
+    if (!req.session.test) {
+        console.log("----no session data ----");
+        req.session.test = 111;
+    }
     this.view
         .assign({attr: 'hello', value: 'world'})
-        .assign('id', req.cookie.a);
+        .assign('id', req.session.test);
 
     res.renderView('index', this.view);
 };

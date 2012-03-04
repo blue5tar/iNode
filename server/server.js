@@ -69,9 +69,8 @@ var server = http.createServer(function(req, res) {
     //other
     var webSite = require(global.serverConfig.webPath);
     req.dataParse(function(){
-        req.session = new Session(req);
+        Session.start(req, res);
         webSite.run(req, res);
-        req.session.save(res);
     });
 });
 
