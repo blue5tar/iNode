@@ -3,18 +3,16 @@ var md5 = require("./utilities/md5");
 exports = module.exports = Session;
 
 function Session(request, options) {
-    this.options = options || {storage: 'memory', expires: 60};
+    //this.req = request;
+    this.options = options || {storage: 'memory', expires: 24 * 60 * 60};
     var urlGetSid = request.get("NODESESSID", "string");
     if (urlGetSid) {
-        console.log("urlSid");
         this.sessionId = urlGetSid;
     } else {
         if (request.cookie.NODESESSID) {
-            console.log("cookie session");
             this.sessionId = request.cookie.NODESESSID;
         } else {
-            console.log("generateSession");
-            this.sessionId = _generateSessionId();
+            this.sessionId = _generateSessionId(request.ip);
         }
     }
 
@@ -44,6 +42,6 @@ session.save = function (res) {
     );
 };
 
-function _generateSessionId() {
-    return md5(Math.random.toString());
+function _generateSessionId(ipString) {
+    return md5(Math.random.toString() + ipString);
 }

@@ -70,8 +70,8 @@ var server = http.createServer(function(req, res) {
     req.dataParse(function(){
         req.session = new Session(req);
         webSite.run(req, res);
+        req.session.save(res);
     });
-    req.session.save(res);
 });
 
 server.listen(config.port);
