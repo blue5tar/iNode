@@ -29,6 +29,7 @@ index.show = function(req, res) {
 
 index.post = function(req, res) {
     res.redirect("/index", true);
+    return;
     this.view
         .assign('attr', req.post("username", "string"))
         .assign('value', req.post("hobby", "array").join(","))

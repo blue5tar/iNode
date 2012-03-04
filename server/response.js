@@ -55,6 +55,7 @@ res.renderView = function(template, view) {
 
 res.redirect = function(url, permanently) {
     var statusCode = 302;
+    permanently = permanently || false;
     if (permanently) {
         statusCode = 301;
     }
@@ -92,7 +93,9 @@ res.writeHead = function(statusCode, reasonPhrase, headers) {
     for(name in this._cookieArr) {
         cookieArray.push(this._cookieArr[name]);
     }
-    this.setHeader("Set-Cookie", cookieArray);
+    if (cookieArray.length > 0) {
+        this.setHeader("Set-Cookie", cookieArray);    
+    }
     this.writeHead(statusCode, reasonPhrase, headers);
 };
 

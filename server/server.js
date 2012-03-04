@@ -5,8 +5,9 @@ var http = require("http"),
     fs = require("fs"),
     path = require("path"),
     less = require("less"),
-    config = require("./config").config
     util = require("util");
+
+global.serverConfig = require("./config").config;
 
 require("./response");
 require("./request");
@@ -14,7 +15,7 @@ require("./request");
 var server = http.createServer(function(req, res) {
     var accessUrl = req.url;
     //log
-    if (config.openAccessLog) {
+    if (global.serverConfig.openAccessLog) {
         console.log("access ip: %s, url : %s", req.ip, accessUrl);
     }
 
@@ -24,7 +25,7 @@ var server = http.createServer(function(req, res) {
         var result = url.parse(accessUrl);
         
         // app/public/
-        var staticFile = config.webPath + '/public' + accessUrl;
+        var staticFile = global.serverConfig.webPath + '/public' + accessUrl;
 
         // static file cache
         
@@ -39,9 +40,9 @@ var server = http.createServer(function(req, res) {
                     res.setHeader("Last-Modified", lastModified);
 
                     var expires = new Date();
-                    expires.setTime(expires.getTime() + config.staticFileExpires * 1000);
+                    expires.setTime(expires.getTime() + global.serverConfig.staticFileExpires * 1000);
                     res.setHeader("Expires", expires.toUTCString());
-                    res.setHeader("Cache-Control", "max-age=" + config.staticFileExpires);
+                    res.setHeader("Cache-Control", "max-age=" + global.serverConfig.staticFileExpires);
 
                     if (req.headers[ifModifiedSince] && lastModified == req.headers[ifModifiedSince]) {
                         res.notModify();
@@ -66,7 +67,7 @@ var server = http.createServer(function(req, res) {
     }
 
     //other
-    var webSite = require(config.webPath);
+    var webSite = require(global.serverConfig.webPath);
     req.dataParse(function(){
         req.session = new Session(req);
         webSite.run(req, res);
@@ -74,7 +75,7 @@ var server = http.createServer(function(req, res) {
     });
 });
 
-server.listen(config.port);
+server.listen(global.serverConfig.port);
 
 // process.on('uncaughtException', function(err){
 //     console.log(err);

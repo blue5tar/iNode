@@ -2,9 +2,10 @@ var md5 = require("./utilities/md5");
 
 exports = module.exports = Session;
 
+var data = {};
 function Session(request, options) {
     //this.req = request;
-    this.options = options || {storage: 'memory', expires: 24 * 60 * 60};
+    this.options = options || {expires: 24 * 60 * 60, path: '/'};
     var urlGetSid = request.get("NODESESSID", "string");
     if (urlGetSid) {
         this.sessionId = urlGetSid;
@@ -16,22 +17,21 @@ function Session(request, options) {
         }
     }
 
-    if (this.options.storage) {
-        var storage = require("./session/" + this.options.storage);
-        this.storage = new storage(this);
+    if (!data[this.sessionId]) {
+        data[this.sessionId] = {};    
     }
 }
 
 var session = Session.prototype;
 
 session.get = function (name) {
-    return this.storage.get(name);
+    return data[this.sessionId][name];
 };
 
 // set("name", "value")
 //set({name: value})
 session.set = function (name, value) {
-    this.storage.set(name, value);
+    data[this.sessionId][name] = value;
 }; 
 
 session.save = function (res) {
@@ -43,5 +43,5 @@ session.save = function (res) {
 };
 
 function _generateSessionId(ipString) {
-    return md5(Math.random.toString() + ipString);
+    return md5(Math.random.toString() + ipString + Date.now());
 }
