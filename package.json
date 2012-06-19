@@ -12,6 +12,6 @@
       "useragent": "latest",
       "charenc": ">=0.0.1",
       "crypt": ">=0.0.1",
-      "mongoose": "2.4.1",
+      "mongoose": "latest"
     }
 }
