@@ -12,30 +12,30 @@ util.inherits(IndexController, FrontController);
 
 var index = IndexController.prototype;
 
-index.show = function(req, res) {
-    if (!req.session.test) {
+index.show = function() {
+    if (!this.req.session.test) {
         console.log("----no session data ----");
-        req.session.test = 111;
+        this.req.session.test = 111;
     }
     this.view
         .assign({attr: 'hello', value: 'world'})
-        .assign('id', req.session.test);
+        .assign('id', this.req.session.test);
 
-    res.renderView('index', this.view);
+    this.res.renderView('index', this.view);
 };
 
-index.post = function(req, res) {
+index.post = function() {
     this.view
-        .assign('attr', req.post("username", "string"))
-        .assign('value', req.post("hobby", "array").join(","))
-        .assign('id', req.get('id', 'int'));
+        .assign('attr', this.req.post("username", "string"))
+        .assign('value', this.req.post("hobby", "array").join(","))
+        .assign('id', this.req.get('id', 'int'));
 
-    var files = req.file("files");
+    var files = this.req.file("files");
 
     if (files) {
-        fs.rename(files.path, global.appConfig.uploadDir + '/' + files.filename);
+        fs.rename(files.path, $_APP.config.uploadDir + '/' + files.filename);
     }
 
 
-    res.renderView('index', this.view);
+    this.res.renderView('index', this.view);
 }

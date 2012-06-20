@@ -4,5 +4,5 @@ exports.config = {
         
     },
     view: 'ejs',
-    uploadDir: global.APP_PATH + '/public/upload',
+    uploadDir: global.$_APP.PATH + '/public/upload',
 };

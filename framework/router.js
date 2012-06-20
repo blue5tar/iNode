@@ -1,10 +1,44 @@
 var url = require("url");
 var path = require("path");
 
-exports.parseUri = function (reqUrl) {
+exports = module.exports = Router;
+
+function Router () {
+    this.controller = "index";
+    this.action     = "show";
+    this.routerParser = defaultRouterParser;
+}
+
+router = Router.prototype;
+
+
+router.setRouterParser = function(routerParser) {
+    if (typeof routerParser === "function") {
+        this.routerParser = routerParser;
+    }
+};
+
+router.route = function () {
+    var uri = global.$_S.REQUEST.url;
+
+    if (typeof this.routerParser === "function") {
+        var route = this.routerParser(uri);
+    } else {
+        var route = router.parseUri(uri);
+    }
+
+    if (typeof route == 'object' && route.controller) {
+        this.controller = route.controller;
+        if (route.action) {
+            this.action = route.action;
+        }
+    }
+}
+
+function defaultRouterParser (uri) {
     
     //default route ruler
-    var parsedResult = url.parse(reqUrl);
+    var parsedResult = url.parse(uri);
     var pathname = path.normalize(parsedResult.pathname);
 
     var controller = "index";
@@ -25,7 +59,7 @@ exports.parseUri = function (reqUrl) {
         controller = pathnames.join("/");
     }
     return {
-        controller: controller.toLowerCase(), 
-        action: action.toLowerCase()
+        controller: controller, 
+        action: action
     };
 };

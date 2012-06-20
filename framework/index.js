@@ -1,47 +1,18 @@
-var router = require("./router"),
+var Application = require("./application"),
     path = require("path");
 
 exports = module.exports = Framework;
 
-function Framework(app) {
-    this.app = app;
+global.$_APP = null;
+
+function Framework() {
+
 }
 
-Framework.prototype.run = function(req, res) {
-    var self = this;
-    this.req = req;
-    this.res = res;
-
-    var route = router.parseUri(req.url);
-
-    self._dispatch(route.controller, route.action);
-    
+Framework.prototype.createApp = function(config) {
+    if (global.$_APP === null) {
+        global.$_APP = new Application(config);
+    }
+    return global.$_APP;
 };
-
-Framework.prototype._dispatch = function(controller, action) {
-    var self = this;
-    
-    var controllerPath = this.app.appPath + '/controller/' + controller;
-    //console.log("controller path : %s", controllerPath);
-
-    path.exists(controllerPath + '.js', function(exists) {
-        if (exists) {
-            var CtrModule = require(controllerPath);
-    
-            var controller = new CtrModule(self.app);
-            if (controller.validate(action)) {
-                if (controller[action]) {
-                    controller[action](self.req, self.res);
-                } else {
-                    self.res.notFound();
-                }
-            } else {
-                self.res.forbidden();
-            }
-        } else {
-            self.res.notFound();
-        }
-    });
-};
-
 

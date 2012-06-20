@@ -6,7 +6,10 @@ var sessionData = {},
     GC_TIME = 60000, // 1m
     MAX_AGE = 1800000; // 30m
 
-session.start = function (request, response, options) {
+session.start = function (options) {
+    var request = global.$_S.REQUEST, 
+        response = global.$_S.RESPONSE;
+ 
     options = options || {};
     options.expires = options.expires || MAX_AGE;
     options.path = options.path || '';

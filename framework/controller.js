@@ -2,10 +2,8 @@ var View = require("./view");
 
 exports = module.exports = Controller;
 
-function Controller(app) {
-    this.app = app;
-    this.view = new View(this.app.appConfig.view.toLowerCase());
-    this.view.setPath(this.app.appPath + '/views');
+function Controller() {
+
 }
 
 Controller.prototype.validate = function (action) {
