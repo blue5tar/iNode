@@ -18,14 +18,3 @@ router
 view
     ejs 
     jade
-
-@todo
-    req
-        get
-        post
-        file  html5 file api
-        
-    session
-
-
-    res
