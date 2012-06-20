@@ -9,8 +9,7 @@ function Router () {
     this.routerParser = defaultRouterParser;
 }
 
-router = Router.prototype;
-
+router = Router.prototype;    
 
 router.setRouterParser = function(routerParser) {
     if (typeof routerParser === "function") {

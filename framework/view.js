@@ -6,7 +6,7 @@ function View(engineName, option) {
     this.option = option || {cache: true};
     if (this.option.cache) {
         this.setCache(true);
-    }
+    }    
 }
 
 View.prototype.setPath = function(path) {
