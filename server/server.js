@@ -15,6 +15,10 @@ require("./request");
 /** server global var**/
 global.$_S = {};
 
+
+/**
+ * create http server
+ */
 var server = http.createServer(function(req, res) {
     global.$_S.REQUEST  = req;
     global.$_S.RESPONSE = res;
@@ -25,13 +29,13 @@ var server = http.createServer(function(req, res) {
         console.log("access ip: %s, url : %s", req.ip, accessUrl);
     }
 
-
+    // if is a static file 
     if (checkIsStatics(accessUrl)) {
         processStatics(accessUrl);
         return;
     }
 
-    //other
+    //dynamic page
     var web = require(serverConfig.webPath);
     req.dataParse(function(){
         Session.start();
@@ -40,7 +44,7 @@ var server = http.createServer(function(req, res) {
 });
 
 server.listen(serverConfig.port);
-    // process.on('uncaughtException', function(err){
+// process.on('uncaughtException', function(err){
 //     console.log(err);
 // });
 
@@ -50,7 +54,10 @@ console.log("the server run on port %d at %s", server.address().port, new Date()
 /**
  * process all static files /img/a.png /css/style.css
  * 
+ * @param string accessUrl 
+ *
  * @author blue5tar
+ * @return bool
  */
 function checkIsStatics(accessUrl) {
     return /\.(gif|png|jpg|bmp|ico|js|css|txt|less)$/i.test(accessUrl);
@@ -58,8 +65,11 @@ function checkIsStatics(accessUrl) {
 
 /**
  * process all static files /img/a.png /css/style.css
- * 
+ *
+ * @param string accessUrl 
+ *
  * @author blue5tar
+ * @return void
  */
 function processStatics(accessUrl) {
     //process static file

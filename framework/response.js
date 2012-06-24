@@ -1,16 +1,13 @@
-var res = require("http").ServerResponse.prototype;
+exports = module.exports = ResponseWrapper;
 
-res.render = function(content, contentType) {
-    contentType = contentType || "text/html";
-    this.writeHead(200, {
-        'Content-Type': contentType
-    });
-    this.end(content);
-};
+function ResponseWrapper() {
+    var res = global.$_S.RESPONSE;
 
-res.renderView = function(template, view) {
-    var self = this;
-    view.render(template, function(data) {
-        self.render(data);
-    });
-};
+    res.renderView = function(template, view) {
+        var self = this;
+        view.render(template, function(data) {
+            self.render(data);
+        });
+    };
+    return res;
+}

@@ -15,6 +15,8 @@ var index = IndexController.prototype;
 index.show = function() {
     if (!this.req.session.test) {
         console.log("----no session data ----");
+        this.res.notFound();
+        return;
         this.req.session.test = 111;
     }
     this.view

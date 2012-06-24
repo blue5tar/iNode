@@ -9,6 +9,14 @@ function Framework() {
 
 }
 
+/**
+ * create a app
+ *
+ * @param object config
+ *
+ * @author blue5tar
+ * @return app single instance
+ */
 Framework.prototype.createApp = function(config) {
     if (global.$_APP === null) {
         global.$_APP = new Application(config);

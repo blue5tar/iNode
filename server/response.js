@@ -46,13 +46,6 @@ res.renderFile = function(file, callback) {
     });
 };
 
-res.renderView = function(template, view) {
-    var self = this;
-    view.render(template, function(data) {
-        self.render(data);
-    });
-};
-
 res.redirect = function(url, permanently) {
     var statusCode = 302;
     permanently = permanently || false;
