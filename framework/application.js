@@ -1,6 +1,6 @@
 var Router = require("./router"),
     View = require("./view"),
-    path = require("path");
+    fs = require("fs");
 
 exports = module.exports = Application;
 
@@ -73,7 +73,7 @@ function dispatch() {
     var res = global.$_S.RESPONSE;
 
     var controllerPath = this.controllerPath + '/' + this.controller + '.js';
-    path.exists(controllerPath, function(exists) {
+    fs.exists(controllerPath, function(exists) {
         if (exists) {
             var CtrModule = require(controllerPath);
     

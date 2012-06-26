@@ -21,7 +21,7 @@ res.render = function(content, contentType, binary) {
 
 res.renderFile = function(file, callback) {
     var self = this;
-    path.exists(file, function(exists) {
+    fs.exists(file, function(exists) {
         if (exists) {
             var extName = path.extname(file).substr(1);
             fs.readFile(file, "binary", function(err, data) {

@@ -86,7 +86,7 @@ function processStatics(accessUrl) {
     //read static file
     //@see http://club.cnodejs.org/topic/4f16442ccae1f4aa27001071
     //@todo Etag
-    path.exists(staticFile, function(exists) {
+    fs.exists(staticFile, function(exists) {
         if (exists) {
             fs.stat(staticFile, function (err, stat) {
                 var lastModified = stat.mtime.toUTCString(); //file lastModify
