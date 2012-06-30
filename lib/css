@@ -1,0 +1,23 @@
+#header {
+
+}
+
+#logo {
+
+}
+
+#main {
+
+}
+
+#main .chat {
+	width:90%;
+	margin:20px auto;
+	border:5px solid #333;
+	border-radius: 5px;
+	height:70%;
+}
+
+#footer {
+
+}

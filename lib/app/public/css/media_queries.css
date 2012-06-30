@@ -1,0 +1,17 @@
+@charset "utf-8";
+/*屏幕小于980px*/
+@media screen and (max-width: 980px) {
+	#main {width: 100%}
+}
+/*屏幕小于650px*/
+@media screen and (max-width: 650px) {
+	#main .chat {
+		border:none;
+	}
+}
+/*屏幕小于480px*/
+@media screen and (max-width: 480px) {
+	html { 	-webkit-text-size-adjust: none; }
+	#logo {width:90px;}
+	#logo img{ height:40px;}
+}

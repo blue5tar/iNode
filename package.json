@@ -12,6 +12,7 @@
       "useragent": "latest",
       "charenc": ">=0.0.1",
       "crypt": ">=0.0.1",
-      "mongoose": "latest"
+      "mongoose": "latest",
+      "node-html-encoder": "latest"
     }
 }

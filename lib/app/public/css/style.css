@@ -1,0 +1,127 @@
+body {
+	background-color: #EEF2FB;
+}
+
+.warning {
+	border:2px solid yellow !important;
+}
+
+#header {
+	border-top: 5px solid #BED3EB;
+	border-bottom: 5px solid #BED3EB;
+}
+
+#top-line {
+	
+}
+
+#logo {
+	width:140px;
+	margin:2px auto;
+}
+
+#main {
+	width: 960px;
+	margin:0 auto;
+	height:80%;
+}
+
+#main .chat {
+	width:98%;
+	height: 100%;
+	margin:0 auto;
+	border:4px solid #519D1A;
+	border-top:none;
+	border-radius: 0 0 5px 5px;
+	overflow: hidden;
+}
+
+.chat-echo {
+	height: 90%;
+}
+
+.chat-echo .chat-message {
+	overflow-y: scroll;
+	height:100%;
+}
+
+.chat-echo .chat-message .item {
+	clear:both;
+}
+
+.chat-echo .chat-message .message{
+	color: #999;
+}
+
+.chat-echo .chat-message .talk{
+	
+}
+
+.chat-echo .chat-message .talk .name{
+	width: 59px;
+	float: left;
+}
+
+.chat-echo .chat-message .talk .echo{
+	float:left;
+	width: 80%;
+	word-wrap: break-word;
+}
+
+.chat-echo .chat-message .talk-self{
+	
+}
+
+.chat-echo .chat-message .talk-self .name{
+	
+}
+
+.chat-echo .chat-message .talk-self .echo{
+	
+}
+
+.chat-echo .chat-message .talk-stranger{
+	
+}
+
+.chat-echo .chat-message .talk-stranger .name{
+	
+}
+
+.chat-echo .chat-message .talk-stranger .echo{
+	
+}
+
+.chat-type {
+	border-top: 2px solid #333;
+	margin-top: 3px;
+}
+.chat-type .chat-input {
+	width: 70%;
+	float: left;
+	margin: 2px;
+}
+
+.chat-type .chat-input input {
+	width: 100%;
+	height: 30px;
+	border: 2px solid #999;
+	border-radius: 2px;
+}
+
+.chat-type .chat-send {
+	width: 29%;
+	float: left;
+}
+
+.chat-type .chat-send button{
+	height:30px;
+	margin: 2px;
+	width:45%;
+	float:right;
+}
+
+
+#footer {
+
+}
