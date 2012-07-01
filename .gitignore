@@ -1,5 +1,4 @@
-/app/lib/config.js
+config.js
 /app/lib/public/upload/*
-/server/lib/config.js
 /node_modules/*
 .*.swp

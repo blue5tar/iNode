@@ -1,4 +1,3 @@
-node_modules
 lib/server/config.js
 lib/app/config.js
 

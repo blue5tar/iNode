@@ -2,7 +2,7 @@
     "author": "blue5tar",
     "name": "iNode", 
     "version": "1.0.0", 
-    "main": "./server/server.js", 
+    "main": "./lib/server/server.js", 
     "private": true, 
     "dependencies": {
       "less": "latest",
