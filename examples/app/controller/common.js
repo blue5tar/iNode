@@ -1,5 +1,5 @@
 var util = require("util");
-var Controller = require("../../framework/controller");
+var Controller = require("../../../lib/framework/controller");
 
 exports = module.exports = CommonController;
 

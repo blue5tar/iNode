@@ -1,4 +1,4 @@
-var Framework = require("../framework");
+var Framework = require("../../lib/framework");
 
 global.APP_PATH = __dirname;
 var config = require("./config").config;

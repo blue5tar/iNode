@@ -13,10 +13,6 @@ util.inherits(IndexController, FrontController);
 var index = IndexController.prototype;
 
 index.show = function() {
-    this.res.renderView('chat', this.view);  
-};
-
-index.hello = function() {
     if (!this.req.session.test) {
         console.log("----no session data ----");    
         this.req.session.test = 111;

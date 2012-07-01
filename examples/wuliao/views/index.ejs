@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>index Page</title>
+        <link rel="stylesheet" href="/style.less">
+        <style>
+            body {color:white; background-color: black;}
+        </style>
+    </head>
+    <body>
+        <span><%= attr %></span>
+        <span><%= value %></span>
+        <span>id = <%= id %></span>
+        <div class="box"><img src="/images/meinv.jpg" width="100" height="100"></div>
+        <div>
+            <form id="theForm" action="/index/post?id=12" method="post" enctype="multipart/form-data">
+                username : <input type="text" name="username" value="" /><br/>
+                password : <input type="password" name="password" value="" /><br/>
+                sex : <input type="radio" name="sex" value="1" /> <input type="radio" name="sex" value="2" /> <br/>
+                hobby : <input type="checkbox" name="hobby" value="read" /> read 
+                        <input type="checkbox" name="hobby" value="surfing" /> surfing
+                        <br/>
+                files1:<input type="file" name="files" value="" /><br/>
+                files2:<input type="file" name="files1" value="" /><br/>
+                <input type="submit" name="submit" value="Submit" />
+                <input type="reset" name="reset" value="Reset" />
+            </form>
+        </div>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript">
+        var socket = io.connect(); // TIP: .connect with no args does auto-discovery
+        socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
+            socket.emit('message', 'tobi', function (data) {
+                console.log(data); // data will be 'woot'
+            });
+        });
+        </script>
+    </body>
+</html>

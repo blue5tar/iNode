@@ -13,6 +13,7 @@
       "charenc": ">=0.0.1",
       "crypt": ">=0.0.1",
       "mongoose": "latest",
-      "node-html-encoder": "latest"
+      "node-html-encoder": "latest",
+      "should": ">=0.6.3"
     }
 }
