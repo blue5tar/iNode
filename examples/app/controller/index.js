@@ -31,9 +31,9 @@ index.post = function() {
         .assign('id', this.req.get('id', 'int'));
 
     var files = this.req.file("files");
-
+    var config = require(global.APP_PATH + "/config");
     if (files) {
-        fs.rename(files.path, $_APP.config.uploadDir + '/' + files.filename);
+        fs.rename(files.path, config.uploadDir + '/' + files.filename);
     }
 
 

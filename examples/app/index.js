@@ -1,6 +1,5 @@
 var Framework = require("../../lib/framework");
 
-global.APP_PATH = __dirname;
 var config = require("./config").config;
 
 /**
@@ -9,10 +8,10 @@ var config = require("./config").config;
  * @author blue5tar
  * @return void
  */
-exports.main = function () {
-    console.log("app path : %s", APP_PATH);
+exports.main = function (req, res) {
+    console.log("app path : %s", global.APP_PATH);
     
-    var app = new Framework().createApp(config);
+    var app = new Framework(req, res).createApp(config);
     //app.setView("ejs");
     //app.setRoute(routeParser);
     app.run();

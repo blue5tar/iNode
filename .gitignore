@@ -1,5 +1,12 @@
+.naeignore
+.naeindex
+
 config.js
-/app/lib/public/upload/*
+
+/examples/app/public/upload/*
+
 /node_modules/*
+
 .*.swp
+
 /TODOS
